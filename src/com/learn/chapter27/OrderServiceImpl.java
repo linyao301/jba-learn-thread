@@ -6,7 +6,6 @@ import java.util.concurrent.TimeUnit;
 
 public class OrderServiceImpl implements OrderService {
 
-  @ActiveMethod
   @Override
   public Future<String> findOrderDetails(long orderId) {
     Future<String> future = FutureServce.<Long, String>newServce().submit(input -> {

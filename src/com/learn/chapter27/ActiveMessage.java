@@ -1,9 +1,7 @@
 package com.learn.chapter27;
 
 import com.learn.chapter19.Future;
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import org.omg.CORBA.OBJ_ADAPTER;
 
 class ActiveMessage {
 

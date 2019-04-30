@@ -13,8 +13,10 @@ public class ActiveDeamonThread extends Thread {
   @Override
   public void run() {
     for (; ; ) {
-      MethodMessage methodMessage = this.queue.take();
-      methodMessage.execute();
+      //MethodMessage methodMessage = this.queue.take();
+      //methodMessage.execute();
+      ActiveMessage activeMessage = this.queue.takeActive();
+      activeMessage.execute();
     }
   }
 }

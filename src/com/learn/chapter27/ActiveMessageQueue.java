@@ -6,6 +6,8 @@ public class ActiveMessageQueue {
 
   private final LinkedList<MethodMessage> messages = new LinkedList<>();
 
+  private final LinkedList<ActiveMessage> activeMessages = new LinkedList<>();
+
   public ActiveMessageQueue() {
     new ActiveDeamonThread(this).start();
   }
@@ -27,6 +29,26 @@ public class ActiveMessageQueue {
         }
       }
       return messages.removeFirst();
+    }
+  }
+
+  public void offerActive(ActiveMessage activeMessage) {
+    synchronized (this) {
+      activeMessages.addLast(activeMessage);
+      this.notify();
+    }
+  }
+
+  public ActiveMessage takeActive() {
+    synchronized (this) {
+      while (activeMessages.isEmpty()) {
+        try {
+          this.wait();
+        } catch (InterruptedException e) {
+          e.printStackTrace();
+        }
+      }
+      return activeMessages.removeFirst();
     }
   }
 
